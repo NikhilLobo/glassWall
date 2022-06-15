@@ -1,25 +1,29 @@
-import logo from "./logo.svg";
-import { DatePicker } from "antd";
+import { Tabs } from "antd";
+import UploadImage from "./components/UploadImage";
+import Home from "./components/Home";
 import "./App.css";
+import { useState } from "react";
 
+const { TabPane } = Tabs;
 function App() {
+  const [uploadNumber, setUploadNumber] = useState(0);
+  const [activeTab, setActiveTab] = useState("1");
+  const onChange = (key) => {
+    setActiveTab(key);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <DatePicker />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Tabs onChange={onChange} activeKey={activeTab} type="card" size="large">
+        <TabPane tab="HOME" key="1">
+          <Home uploadNumber={uploadNumber} />
+        </TabPane>
+        <TabPane tab="UPLOAD" key="2">
+          <UploadImage
+            setUploadNumber={setUploadNumber}
+            setActiveTab={setActiveTab}
+          />
+        </TabPane>
+      </Tabs>
     </div>
   );
 }
